@@ -24,12 +24,20 @@ case $checkOption in
 		echo "Player stays in same position:" $position	;;
 	$ladder)
 		((ladderCount++))
-		echo "Current position is :" $position
+		echo "Player current position is :" $position
 		position=$((position+rollDie))
-		echo "You encountered a ladder. new position is:" $position ;;
+		echo "You climb a ladder and new position is:" $position ;;
 	$snake)
 		((snakeCount++))
-		echo "Current position is :" $position
+		echo "Player current position is :" $position
 		position=$((position-rollDie))
-		echo "You encountered a ladder. new position is:" $position ;;
+		if(($position<0))
+			then
+				echo "You run into a a snake and new position is:" $position
+				position=$position
+			else
+				echo "You run into a snake and new position is:" $position
+				position=$position
+		fi
+		;;
 esac
