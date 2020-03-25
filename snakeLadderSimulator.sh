@@ -65,8 +65,8 @@ done
 
 if(($player1Position==$WINNING_POSITION))
 then
-	echo "Congracts!!!!!player 1 won. you rolled the die for $dieCountofPlayer1 times"
+	echo "Congratulations player 1 won you rolled the die for $dieCountofPlayer1 times"
 else
-	echo "Congracts!!!!!player 2 won. you rolled the die for $dieCountofPlayer2 times"
+	echo "Congratulations player 2 won you rolled the die for $dieCountofPlayer2 times"
 fi
 
