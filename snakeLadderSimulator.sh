@@ -1,43 +1,53 @@
 #!/bin/bash -x
+
 #Constants
 POSITION=0
-
+WINNING_POSITION=100
 #Variables 
 position=0
 noPlay=0
 ladder=1
 snake=2
-ladderCount=0
-snakeCount=0
-
-#At start position with single player
-echo "Welcome to Snake And Ladder Game"
-
-#Roll a die to get ranmdom number between 1 to 6
-rollDie=$((RANDOM%6+1))
-echo $rollDie
-
-checkOption=$((RANDOM%3))
-case $checkOption in
-	$noPlay)
-		echo "Player current position is:" $position
-		echo "Player stays in same position:" $position	;;
-	$ladder)
-		((ladderCount++))
-		echo "Player current position is :" $position
-		position=$((position+rollDie))
-		echo "You climb a ladder and new position is:" $position ;;
-	$snake)
-		((snakeCount++))
-		echo "Player current position is :" $position
-		position=$((position-rollDie))
-		if(($position<0))
+echo "Welcome to Snake and Ladder game"
+# Roll a die to get ranmdom number between 1 to 6
+#Winning condition
+while(($position!=$WINNING_POSITION))
+do
+	rollDie=$((RANDOM%6+1))
+	echo "Roll die output is:" $rollDie
+	selectOption=$((RANDOM%3))
+	case $selectOption in
+		$noPlay)
+			echo "Player current position is:"$position
+			echo "You stay in same position:"$position
+			position=$position
+			;;
+		$ladder)
+			echo "Player current position is :" $position
+			echo "You climb a ladder."
+			# Exact winning condition
+			if(( $((position+rollDie))>100  ))
 			then
-				echo "You run into a a snake and new position is:" $position
 				position=$position
+				echo "Player current position is:"$position
 			else
-				echo "You run into a snake and new position is:" $position
+				position=$((position+rollDie))
+				echo "New position of player is:"$position
+			fi
+			;;
+		$snake)
+			echo "You swalloed by snake."
+			echo "Player current position is :" $position
+			# Exact restart condition
+			if(($position<0))
+			then
+				echo "New position of player is:" $POSITION
+				position=$POSITION
+			else
+				position=$((position-rollDie))
+				echo "New position of player is:" $position
 				position=$position
-		fi
-		;;
-esac
+			fi
+			;;
+	esac
+done
